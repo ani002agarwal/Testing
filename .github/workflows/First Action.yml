@@ -4,6 +4,17 @@ permissions:
   contents: write
 
 jobs:
+  Prod-approver:
+    name: Reviewer Approval
+    runs-on: ubuntu-latest
+    environment: Prod Approval
+ 
+    steps:
+      - uses: actions/checkout@v4
+ 
+      - name: Request is sended
+        run: |
+          echo "Waiting for approver to approve this request"
   TimeZone-job:
     runs-on: ubuntu-latest
     steps:
@@ -66,8 +77,8 @@ jobs:
 
   Prod:
    runs-on: ubuntu-latest
+   needs: [Prod-approver,Test]
    environment: Prod
-   needs: [Test]
    steps:
      - name: print Prod Environment variable
        run: |
