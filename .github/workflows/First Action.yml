@@ -2,3 +2,82 @@ name: First Workflow
 on: workflow_dispatch
 permissions:
   contents: write
+
+jobs:
+  TimeZone-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: create folder
+        run: |
+          if [ -d "textfolder" ]; then
+            echo "File and Folder Exist!"
+          else
+            mkdir -p textfolder
+            echo "This file contains zone time, date and event"> textfolder/timestamp.txt
+            echo "File and Folder Created Successfully!"
+          fi
+
+      - name: Write timestamp and event info
+        run: |
+          TZ="Asia/Kolkata"
+          NOW="$(date '+%Y-%m-%d %H:%M:%S %Z')"
+          echo "--------------------------------------------------------" >> textfolder/timestamp.txt
+          echo "Event: ${{ github.event_name}}" >> textfolder/timestamp.txt
+          echo "Repository: ${{ github.repository}}" >> textfolder/timestamp.txt
+          echo "Branch: ${{ github.ref_name}}" >> textfolder/timestamp.txt
+          echo "Changed file(s): ${CHANGED_FILES}" >> textfolder/timestamp.txt
+          echo "Triggered at (IST): ${NOW}" >> textfolder/timestamp.txt
+          echo "--------------------------------------------------------" >> textfolder/timestamp.txt
+
+      - name: Commit changes
+        run: |
+          git config user.name "ani002agarwal"
+          git config user.email "ankit.garg1.ext@bayer.com"
+ 
+          git add textfolder/timestamp.txt
+          git commit -m "Update timestamp from ${{github.event_name}}" || echo "No Commit"
+          git push
+          
+  first-job:
+   runs-on: ubuntu-latest
+   steps:
+     - name: print greeting
+       run:  echo "Hello world!"
+     - name: print by
+       run: echo "Done by"
+  Dev:
+    runs-on: ubuntu-latest
+    environment: Dev
+    steps:
+      - name: print Dev Environment Variable
+        run: |
+          echo "Dev Variable 1= ${{vars.variable1}}"
+          echo "secret Variable= ${{secrets.passkey}}"
+
+  Test:
+    runs-on: ubuntu-latest
+    needs: [Dev]
+    environment: Test
+    steps:
+      - name: print Test environment Variable
+        run: |
+          echo "Test Variable 1=${{vars.variable1}}"
+
+  Prod:
+   runs-on: ubuntu-latest
+   environment: Prod
+   needs: [Test]
+   steps:
+     - name: print Prod Environment variable
+       run: |
+         echo "Prod Variable 1= ${{vars.variable1}}"
+         echo "secret Variable= ${{secrets.privacy}}"
+      
+
+      
+     
+      
+     
+   
+  
