@@ -1,0 +1,14 @@
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\bin\Debug\net10.0\Personal.exe
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\bin\Debug\net10.0\Personal.deps.json
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\bin\Debug\net10.0\Personal.runtimeconfig.json
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\bin\Debug\net10.0\Personal.dll
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\bin\Debug\net10.0\Personal.pdb
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.AssemblyInfoInputs.cache
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.AssemblyInfo.cs
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.csproj.CoreCompileInputs.cache
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.dll
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\refint\Personal.dll
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.pdb
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\Personal.genruntimeconfig.cache
+C:\Users\EBIVJ\OneDrive - Bayer\Documents\Personal\Personal\obj\Debug\net10.0\ref\Personal.dll
