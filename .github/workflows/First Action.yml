@@ -1,5 +1,20 @@
 name: First Workflow
-on: workflow_dispatch
+on:
+  push:
+  pull_request:
+    branches: ['**']     # any target branch
+    paths: ['**']        # any files changed
+    types: [opened, synchronize, reopened, ready_for_review]
+ 
+ 
+ 
+  workflow_dispatch:
+ 
+  #MIN HOUR DAY MONTH WEEKDAY
+  #12:00 IST → 06:30 UTC → cron: '30 6 * * *'
+  schedule:
+    # Daily at 09:00 IST (UTC+5:30) -> 03:30 UTC
+    - cron: '30 3 * * *'
 permissions:
   contents: write
 
