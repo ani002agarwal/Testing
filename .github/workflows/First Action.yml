@@ -76,6 +76,34 @@ jobs:
     runs-on: ubuntu-latest
     environment: Dev
     steps:
+      
+      - name: Count job results for last 7 days
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DAYS=7
+          WORKFLOW_FILE=".github/workflows/your-first-action.yml"
+
+          echo "Fetching workflow runs..."
+          RUNS=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/${WORKFLOW_FILE}/runs?per_page=100")
+
+          for JOB in dev test prod; do
+            SUCCESS=$(echo "$RUNS" | jq --arg job "$JOB" --argjson days "$DAYS" '
+              .workflow_runs[]
+              | select((now - (.created_at|fromdate)) < ($days*86400))
+              | .conclusion as $c
+              | input_filename
+              ' | grep -c success)
+
+            FAILED=$(echo "$RUNS" | jq --arg job "$JOB" --argjson days "$DAYS" '
+              .workflow_runs[]
+              | select((now - (.created_at|fromdate)) < ($days*86400))
+              ' | grep -c failure)
+
+            echo "$JOB → success: $SUCCESS, failed: $FAILED"
+          done
       - name: print Dev Environment Variable
         run: |
           echo "Dev Variable 1= ${{vars.variable1}}"
