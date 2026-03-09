@@ -1,0 +1,34 @@
+name: Job Stats
+
+on:
+  workflow_call:
+    outputs:
+      success_count:
+        value: ${{ jobs.stats.outputs.success_count }}
+      failed_count:
+        value: ${{ jobs.stats.outputs.failed_count }}
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    outputs:
+      success_count: ${{ steps.set.outputs.success_count }}
+      failed_count: ${{ steps.set.outputs.failed_count }}
+
+    steps:
+      - name: Get workflow runs from last 7 days
+        id: fetch
+        run: |
+          since=$(date -u -d "7 days ago" +"%Y-%m-%dT%H:%M:%SZ")
+
+          gh api repos/${{ github.repository }}/actions/runs \
+            --jq ".workflow_runs[] | select(.created_at >= \"$since\")" > runs.json
+
+      - name: Count success and failed jobs
+        id: set
+        run: |
+          success=$(jq -r 'select(.conclusion=="success") | .id' runs.json | wc -l)
+          failed=$(jq -r 'select(.conclusion=="failure") | .id' runs.json | wc -l)
+
+          echo "success_count=$success" >> $GITHUB_OUTPUT
+          echo "failed_count=$failed" >> $GITHUB_OUTPUT
