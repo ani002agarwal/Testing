@@ -78,11 +78,10 @@ jobs:
     steps:
       
      - name: Count job results for last 7 days
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
           DAYS=7
-          WORKFLOW_FILE="First Workflow"   # workflow name, not file path
+          WORKFLOW_FILE="First Action"   # workflow name, not file path
 
           echo "Fetching workflow runs..."
           RUNS=$(curl -s \
