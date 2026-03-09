@@ -85,7 +85,7 @@ jobs:
           echo "Fetching workflow runs..."
           RUNS=$(curl -s \
             # -H "Authorization: Bearer $GH_TOKEN" \
-            "https://github.com/ani002agarwal/Testing/tree/main/.github/workflows/${First Action}/runs?per_page=100")
+            "https://github.com/ani002agarwal/Testing/tree/main/.github/workflows/${WORKFLOW_FILE}/runs?per_page=100")
 
           for JOB in dev test prod; do
             SUCCESS=$(echo "$RUNS" | jq --arg job "$JOB" --argjson days "$DAYS" '
