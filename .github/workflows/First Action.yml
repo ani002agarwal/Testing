@@ -81,14 +81,20 @@ jobs:
           echo "Dev Variable 1= ${{vars.variable1}}"
           echo "secret Variable= ${{secrets.passkey}}"
           
+      - uses: actions/checkout@v4
+
       - name: Get job stats
         id: stats
         uses: ./.github/workflows/job-stats.yml
         
+
+      - name: Dev job logic
+        run: echo "Running DEV job..."
+
       - name: Print stats
         run: |
           echo "DEV → Success in last 7 days: ${{ steps.stats.outputs.success_count }}"
-          echo "DEV → Failed in last 7 days: ${{ steps.stats.outputs.failed_count }}"
+          echo "DEV → Failed in last 7 days: ${{ steps.stats.outputs.failed_count }}
 
   Test:
     runs-on: ubuntu-latest
