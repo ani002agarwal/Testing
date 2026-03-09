@@ -80,12 +80,12 @@ jobs:
       - name: Count job results for last 7 days
         run: |
           DAYS=7
-          WORKFLOW_FILE=".github/workflows/your-first-action.yml"
+          WORKFLOW_FILE=".github/workflows/First Action.yml"
 
           echo "Fetching workflow runs..."
           RUNS=$(curl -s \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/${WORKFLOW_FILE}/runs?per_page=100")
+            # -H "Authorization: Bearer $GH_TOKEN" \
+            "https://github.com/ani002agarwal/Testing/tree/main/.github/workflows/${First Action}/runs?per_page=100")
 
           for JOB in dev test prod; do
             SUCCESS=$(echo "$RUNS" | jq --arg job "$JOB" --argjson days "$DAYS" '
