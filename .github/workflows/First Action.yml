@@ -76,44 +76,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: Dev
     steps:
-      
-     - name: Count job results for last 7 days
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-          DAYS=7
-          WORKFLOW_FILE="First Action"   # workflow name, not file path
-
-          echo "Fetching workflow runs..."
-          RUNS=$(curl -s \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows?per_page=100")
-
-          WORKFLOW_ID=$(echo "$RUNS" | jq -r ".workflows[] | select(.name==\"$WORKFLOW_FILE\") | .id")
-
-          RUN_DATA=$(curl -s \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/$WORKFLOW_ID/runs?per_page=100")
-
-          for JOB in Dev Test Prod; do
-            SUCCESS=0
-            FAILED=0
-
-            for RUN_ID in $(echo "$RUN_DATA" | jq -r '.workflow_runs[].id'); do
-              JOBS=$(curl -s \
-                -H "Authorization: Bearer $GH_TOKEN" \
-                "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/$RUN_ID/jobs")
-
-              STATUS=$(echo "$JOBS" | jq -r ".jobs[] | select(.name==\"$JOB\") | .conclusion")
-
-              if [ "$STATUS" = "success" ]; then
-                SUCCESS=$((SUCCESS+1))
-              elif [ "$STATUS" = "failure" ]; then
-                FAILED=$((FAILED+1))
-              fi
-            done
-
-            echo "$JOB → success: $SUCCESS, failed: $FAILED"
-          done
       - name: print Dev Environment Variable
         run: |
           echo "Dev Variable 1= ${{vars.variable1}}"
