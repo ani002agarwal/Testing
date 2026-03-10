@@ -20,8 +20,7 @@ on:
   # schedule:
   #   # Daily at 09:00 IST (UTC+5:30) -> 03:30 UTC
   #   - cron: '30 3 * * *'
-permissions:
-  contents: write
+
 
 jobs:
   Prod-approver:
@@ -37,6 +36,8 @@ jobs:
           echo "Waiting for approver to approve this request"
   TimeZone-job:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: create folder
