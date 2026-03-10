@@ -1,19 +1,18 @@
 name: First Workflow
 on:
+
+  workflow_dispatch:
+     inputs:
+      days:
+        description: "Days in the past to look back"
+        required: false
+        default: "7"
   push:
   pull_request:
     branches: ['**']     # any target branch
     paths: ['**']        # any files changed
     types: [opened, synchronize, reopened, ready_for_review]
- 
- 
- 
- workflow_dispatch:
-    inputs:
-      days:
-        description: "Days in the past to look back"
-        required: false
-        default: "7"
+   
  
  
   #MIN HOUR DAY MONTH WEEKDAY
